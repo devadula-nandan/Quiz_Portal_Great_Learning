@@ -10,9 +10,19 @@ from app.services import *
 [Sign Up API] : Its responsibility is to perform the signup activity for the user.
 """
 #  Restful way of creating APIs through Flask Restful
+
+
 class SignUpAPI(MethodResource, Resource):
-    pass
-            
+    @doc(description='SignUpAPI', tags=['SignUpAPI'])
+    @use_kwargs(SignUpRequest, location=('json'))
+    @marshal_with(APIResponse)
+    def post(self, **kwargs):
+        data = {
+            "name": kwargs['name'],
+            "username": kwargs['username'],
+            "password": kwargs['password']
+        }
+        return User.sign_up(data)
 
 api.add_resource(SignUpAPI, '/signup')
 docs.register(SignUpAPI)
@@ -21,9 +31,19 @@ docs.register(SignUpAPI)
 [Login API] : Its responsibility is to perform the login activity for the user and 
 create session id which will be used for all subsequent operations.
 """
+
+
 class LoginAPI(MethodResource, Resource):
-    pass
-            
+    @doc(description='LoginAPI', tags=['LoginAPI'])
+    @use_kwargs(LoginRequest, location=('json'))
+    @marshal_with(APIResponse)
+    def post(self, **kwargs):
+        data = {
+            "username": kwargs['username'],
+            "password": kwargs['password']
+        }
+        return User.login(data)
+
 
 api.add_resource(LoginAPI, '/login')
 docs.register(LoginAPI)
@@ -31,9 +51,13 @@ docs.register(LoginAPI)
 """
 [Logout API] : Its responsibility is to perform the logout activity for the user.
 """
+
+
 class LogoutAPI(MethodResource, Resource):
-   pass
-            
+    @doc(description='LoginAPI', tags=['LoginAPI'])
+    @marshal_with(APIResponse)
+    def post(self):
+        return User.logout()
 
 api.add_resource(LogoutAPI, '/logout')
 docs.register(LogoutAPI)
@@ -42,6 +66,8 @@ docs.register(LogoutAPI)
 [Add Question API] : Its responsibility is to add question to the question bank.
 Admin has only the rights to perform this activity.
 """
+
+
 class AddQuestionAPI(MethodResource, Resource):
     pass
 
@@ -53,6 +79,8 @@ docs.register(AddQuestionAPI)
 [List Questions API] : Its responsibility is to list all questions present activly in the question bank.
 Here only Admin can access all the questions.
 """
+
+
 class ListQuestionAPI(MethodResource, Resource):
     pass
 
@@ -63,6 +91,8 @@ docs.register(ListQuestionAPI)
 """
 [Create Quiz API] : Its responsibility is to create quiz and only admin can create quiz using this API.
 """
+
+
 class CreateQuizAPI(MethodResource, Resource):
     pass
 
@@ -73,6 +103,8 @@ docs.register(CreateQuizAPI)
 """
 [Assign Quiz API] : Its responsibility is to assign quiz to the user. Only Admin can perform this API call.
 """
+
+
 class AssignQuizAPI(MethodResource, Resource):
     pass
 
@@ -84,6 +116,8 @@ docs.register(AssignQuizAPI)
 [View Quiz API] : Its responsibility is to view the quiz details.
 Only Admin and the assigned users to this quiz can access the quiz details.
 """
+
+
 class ViewQuizAPI(MethodResource, Resource):
     pass
 
@@ -95,6 +129,8 @@ docs.register(ViewQuizAPI)
 [View Assigned Quiz API] : Its responsibility is to list all the assigned quizzes 
                             with there submittion status and achieved scores.
 """
+
+
 class ViewAssignedQuizAPI(MethodResource, Resource):
     pass
 
@@ -106,6 +142,8 @@ docs.register(ViewAssignedQuizAPI)
 """
 [View All Quiz API] : Its responsibility is to list all the created quizzes. Admin can only list all quizzes.
 """
+
+
 class ViewAllQuizAPI(MethodResource, Resource):
     pass
 
@@ -117,6 +155,8 @@ docs.register(ViewAllQuizAPI)
 [Attempt Quiz API] : Its responsibility is to perform quiz attempt activity by 
                         the user and the score will be shown as a result of the submitted attempt.
 """
+
+
 class AttemptQuizAPI(MethodResource, Resource):
     pass
 
@@ -130,11 +170,11 @@ docs.register(AttemptQuizAPI)
                         also the ones who have not attempted are also shown.
                         Admin has only acess to this functionality.
 """
+
+
 class QuizResultAPI(MethodResource, Resource):
     pass
 
 
 api.add_resource(QuizResultAPI, '/quiz.results')
 docs.register(QuizResultAPI)
-
-
