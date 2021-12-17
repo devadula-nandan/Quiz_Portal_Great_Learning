@@ -18,4 +18,13 @@ class LoginRequest(Schema):
     username = fields.Str()
     password = fields.Str()
 
+class AddQuestionsRequest(Schema):
+    question = fields.Str()
+    choice1 = fields.Str()
+    choice2 = fields.Str()
+    choice3 = fields.Str()
+    choice4 = fields.Str()
+    answer = fields.Int()
+    marks = fields.Int()
+    remarks = fields.Str()
 

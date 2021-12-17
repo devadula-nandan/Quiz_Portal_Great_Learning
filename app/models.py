@@ -12,8 +12,8 @@ Below is the configuration mentioned by which the application can make connectio
 username = 'root'
 password = 'nandan123'
 database_name = 'quiz_app'
-application.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{username}:{password}@localhost/{database_name}"
-# application.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db'
+# application.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{username}:{password}@localhost/{database_name}"
+application.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db'
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(application)
@@ -64,7 +64,7 @@ class QuestionMaster(db.Model):
 
     __tablename__ = 'question_master'
     id = Column(String(100), primary_key=True)
-    question = Column(String(500))
+    question = Column(String(500), unique=True)
     choice1 = Column(String(500))
     choice2 = Column(String(500))
     choice3 = Column(String(500))

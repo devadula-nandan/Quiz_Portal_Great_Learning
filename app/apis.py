@@ -24,6 +24,7 @@ class SignUpAPI(MethodResource, Resource):
         }
         return User.sign_up(data)
 
+
 api.add_resource(SignUpAPI, '/signup')
 docs.register(SignUpAPI)
 
@@ -54,10 +55,11 @@ docs.register(LoginAPI)
 
 
 class LogoutAPI(MethodResource, Resource):
-    @doc(description='LoginAPI', tags=['LoginAPI'])
+    @doc(description='LogoutAPI', tags=['LogoutAPI'])
     @marshal_with(APIResponse)
-    def post(self):
+    def delete(self):
         return User.logout()
+
 
 api.add_resource(LogoutAPI, '/logout')
 docs.register(LogoutAPI)
@@ -69,7 +71,21 @@ Admin has only the rights to perform this activity.
 
 
 class AddQuestionAPI(MethodResource, Resource):
-    pass
+    @doc(description='AddQuestionAPI', tags=['AddQuestionAPI'])
+    @use_kwargs(AddQuestionsRequest, location=('json'))
+    @marshal_with(APIResponse)
+    def post(self, **kwargs):
+        data = {
+            "question": kwargs['question'],
+            "choice1": kwargs['choice1'],
+            "choice2": kwargs['choice2'],
+            "choice3": kwargs['choice3'],
+            "choice4": kwargs['choice4'],
+            "answer": kwargs['answer'],
+            "marks": kwargs['marks'],
+            "remarks": kwargs['remarks']
+        }
+        return Quiz.add_question(data)
 
 
 api.add_resource(AddQuestionAPI, '/add.question')
