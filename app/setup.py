@@ -1,6 +1,5 @@
 import csv
 import uuid
-from datetime import datetime
 
 from app.models import QuestionMaster
 from app import db
@@ -8,8 +7,6 @@ from app import db
 """
 Helper function which will create questions based on the data in questions.csv file
 """
-
-
 def add_questions():
     try:
         with open('questions.csv', newline='') as csvfile:
@@ -23,9 +20,9 @@ def add_questions():
                 answer = row['Answer']
                 marks = row['Marks']
                 remarks = row['Remarks']
-
+                
                 question = QuestionMaster(
-                    str(uuid.uuid4()),
+                    uuid.uuid4(),
                     question,
                     choice1,
                     choice2,
@@ -33,14 +30,11 @@ def add_questions():
                     choice4,
                     answer,
                     marks,
-                    remarks,
-                    True,
-                    datetime.utcnow(),
-                    datetime.utcnow()
+                    remarks
                 )
-
+                
                 db.session.add(question)
-
+                
             db.session.commit()
     except Exception as e:
-        print(str(e))
+        pass

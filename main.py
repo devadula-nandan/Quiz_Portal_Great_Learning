@@ -7,12 +7,9 @@ from app.setup import add_questions
 """
 if __name__ == "__main__":
     
-    try:
-        add_questions()
-    except Exception as e:
-        pass
+    # try:
+    #     add_questions()
+    # except Exception as e:
+    #     pass
     
     application.run(debug=True, port=8000)
-    
-    
-    
