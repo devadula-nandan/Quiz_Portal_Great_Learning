@@ -1,3 +1,4 @@
+<!-- '{"name":"Quiz Portal great learning","version": 12,"tech": ["Python","Flask","MySQL","RestAPI","Swagger"],"tags":["api","backend"],"snapshots":[]}' -->
 python version 3.9.9
 
 virtual environment created in win 11
